@@ -1,5 +1,13 @@
+//imports
+import Routes from "./Routes";
+import { Header, TabNavigator } from "components/common";
+
 function App() {
-  return <div className="App">AsttoTak</div>;
+  return (
+    <>
+      <Routes />
+    </>
+  );
 }
 
 export default App;
