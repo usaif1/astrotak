@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         tabGrey: Colors.tabGrey,
+        walletBlue: Colors.walletBlue,
       },
       fontSize: {
         xxs: "0.7rem",
