@@ -2,12 +2,12 @@
 import React, { useEffect } from "react";
 
 //imports
-import { Wallet, PaymentFooter, Dropdown } from "components/common";
+import { Wallet, PaymentFooter, Dropdown, Suggestions } from "components/common";
 
 //redux
 import { RootState } from "store";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchQuestions } from "slices/questionSlice";
+import { fetchQuestions, setCategory } from "slices/questionSlice";
 
 type Props = {};
 
@@ -18,9 +18,6 @@ type Option = {
 
 const Questions: React.FC = (props: Props) => {
   const questionState = useSelector((state: RootState) => state.question);
-
-  console.log(questionState);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,11 +31,15 @@ const Questions: React.FC = (props: Props) => {
     };
   });
 
+  const selectedQuestion = questionState.questions.find((question) => {
+    return question.name === questionState.category;
+  });
+
   return (
     <div className="mt-16 relative">
       <Wallet />
       <PaymentFooter />
-      <div className="pl-4">
+      <div className="pl-4 mt-2">
         <p className="font-bold">Ask a Question</p>
         <p className="w-11/12 text-base font-light text-sm">
           Seek accurate answers to your life problems and get guidance towards the right path. Whether the problem is
@@ -48,7 +49,23 @@ const Questions: React.FC = (props: Props) => {
       </div>
       <div className="pl-4 mt-2 w-11/12">
         <p className="font-bold mb-1">Choose Category</p>
-        {questionState.loading ? <div> loading... </div> : <Dropdown options={optionsList} />}
+        {questionState.loading ? (
+          <div> loading... </div>
+        ) : (
+          <Dropdown options={optionsList} setValue={setCategory} category={questionState.category} />
+        )}
+        <div className="mt-6">
+          <textarea
+            style={{ borderRadius: "4px" }}
+            className="border-2 border-lightGrey w-full px-2 py-3 h-20"
+            placeholder="Type a question here"
+            maxLength={150}
+          />
+          <p className="w-full text-xs text-tabGrey text-right">wordcount</p>
+        </div>
+        <div>
+          {selectedQuestion ? <Suggestions suggestions={selectedQuestion.suggestions} /> : <div>loading...</div>}
+        </div>
       </div>
     </div>
   );

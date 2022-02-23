@@ -1,6 +1,7 @@
 //dependencies
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
 
 type Option = {
   label: string;
@@ -9,19 +10,21 @@ type Option = {
 
 type Props = {
   options: Option[];
+  setValue: any;
+  category?: string;
 };
 
 type ArrowProps = {
   onClick: any;
 };
 
-const Dropdown: React.FC<Props> = ({ options }) => {
+const Dropdown: React.FC<Props> = ({ options, category, setValue }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div style={{ borderRadius: "6px" }} className="relative shadow py-2" onClick={() => setOpen(!open)}>
       <div className="flex justify-between items-center pr-4">
-        <p className="ml-2">{options[0].label}</p>
+        <p className="ml-2">{category}</p>
         <DropDownArrow
           onClick={(e: any) => {
             e.stopPropagation();
@@ -29,20 +32,26 @@ const Dropdown: React.FC<Props> = ({ options }) => {
           }}
         />
       </div>
-      {open ? <Options options={options} /> : null}
+      {open ? <Options options={options} setValue={setValue} /> : null}
     </div>
   );
 };
 
-const Options: React.FC<Props> = ({ options }) => {
+const Options: React.FC<Props> = ({ options, setValue }) => {
+  const dispatch = useDispatch();
+
   return (
     <div
       style={{ borderRadius: "6px" }}
-      className="absolute w-full mt-4 flex flex-col justify-start max-h-44 overflow-auto shadow"
+      className="absolute w-full bg-white mt-4 flex flex-col justify-start max-h-44 overflow-auto shadow"
     >
       {options.map((option) => {
         return (
-          <button key={nanoid()} className="text-left pl-2 mt-2 font-light">
+          <button
+            key={nanoid()}
+            className="text-left pl-2 mt-2 font-light"
+            onClick={() => dispatch(setValue(option.value))}
+          >
             {option.label}
           </button>
         );

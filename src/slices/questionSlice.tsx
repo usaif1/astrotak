@@ -7,12 +7,13 @@ export type QuestionState = {
   name: string;
   price: number;
   description: string;
-  suggestions: string;
+  suggestions: string[];
 };
 
 type InitialState = {
   questions: QuestionState[];
   loading: boolean;
+  category: string;
 };
 
 export const fetchQuestions = createAsyncThunk("questions/fetchAll", async () => {
@@ -23,21 +24,27 @@ export const fetchQuestions = createAsyncThunk("questions/fetchAll", async () =>
 const initialState: InitialState = {
   questions: [],
   loading: true,
+  category: "",
 };
 
 export const questionSlice = createSlice({
   name: "question",
   initialState,
-  reducers: {},
+  reducers: {
+    setCategory: (state, action: PayloadAction<string>) => {
+      state.category = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchQuestions.fulfilled, (state, action) => {
       action.payload.data.forEach((detail: QuestionState) => {
         state.questions.push(detail);
         state.loading = false;
       });
+      state.category = action.payload.data[0].name;
     });
   },
 });
 
-export const {} = questionSlice.actions;
+export const { setCategory } = questionSlice.actions;
 export default questionSlice.reducer;
