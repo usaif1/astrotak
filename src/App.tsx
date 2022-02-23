@@ -1,12 +1,13 @@
 //imports
 import Routes from "./Routes";
-import { Header, TabNavigator } from "components/common";
+import { store } from "store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Routes />
-    </>
+    </Provider>
   );
 }
 
