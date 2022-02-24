@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 
 //imports
 import { Header2 } from "components/common";
-import { Tabs, Wallet, FamilyCard } from "components/Family";
+import { Tabs, Wallet, FamilyCard, AddFamilyBtn, AddFamilyForm } from "components/Family";
 
 //redux
 import { RootState } from "store";
@@ -21,13 +21,21 @@ const Family: React.FC = (props: Props) => {
     dispatch(fetchFamily());
   }, []);
 
-  console.log(familyState);
-
   return (
-    <div style={{ background: "#FDFDFD" }} className="fixed w-full h-full">
+    <div style={{ background: "#FDFDFD" }} className="w-full h-full">
       <Header2 />
       <div className="mt-14 relative"></div>
       <Tabs />
+      {familyState.showForm ? <AddFamilyForm /> : <FamilyDetails />}
+    </div>
+  );
+};
+
+const FamilyDetails: React.FC = () => {
+  const familyState = useSelector((state: RootState) => state.family);
+
+  return (
+    <>
       <Wallet />
       <div className="mt-4 mx-2">
         <div className="mx-3 mb-2 flex justify-between font-extralight text-sm w-8/12 text-blue-800">
@@ -44,7 +52,8 @@ const Family: React.FC = (props: Props) => {
           })
         )}
       </div>
-    </div>
+      <AddFamilyBtn />
+    </>
   );
 };
 

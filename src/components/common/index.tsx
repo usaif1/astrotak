@@ -6,3 +6,4 @@ export { default as PaymentButton } from "./PaymentButton";
 export { default as PaymentFooter } from "./PaymentFooter";
 export { default as Dropdown } from "./Dropdown";
 export { default as Suggestions } from "./Suggestions";
+export { default as FormInput } from "./FormInput";
