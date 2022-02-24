@@ -11,6 +11,8 @@ module.exports = {
         lightGrey: Colors.lightGrey,
         highlightOrangeBg: Colors.highlightOrangeBg,
         highlightOrangeText: Colors.highlightOrangeText,
+        lightOrange: Colors.lightOrange,
+        orange: Colors.orange,
       },
       width: {
         "11.4/12": "95%",

@@ -22,7 +22,7 @@ const tabs = [
 
 const TabNavigator: React.FC = (props: Props) => {
   return (
-    <div className="fixed bottom-4 flex items-baseline justify-between w-full px-4">
+    <div className="fixed bottom-0 flex items-baseline justify-between w-full px-4 py-2 bg-white">
       {tabs.map((tab) => {
         return (
           <Link to={tab.to} key={nanoid()} className="flex flex-col justify-center items-center">

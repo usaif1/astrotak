@@ -1,10 +1,12 @@
 //imports
 import { configureStore } from "@reduxjs/toolkit";
 import questionReducer from "slices/questionSlice";
+import familySliceReducer from "slices/familySlice";
 
 export const store = configureStore({
   reducer: {
     question: questionReducer,
+    family: familySliceReducer,
   },
 });
 

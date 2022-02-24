@@ -4,6 +4,8 @@ const Colors = {
   lightGrey: "#D9D9D9",
   highlightOrangeBg: "#FFE4CC",
   highlightOrangeText: "#FF7800",
+  lightOrange: "#FFCB9E",
+  orange: "#FF7A24",
 };
 
 module.exports = Colors;
